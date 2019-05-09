@@ -5,12 +5,13 @@ import java.io.*;
 import java.util.Arrays;
 
 public class Percolation {
-    public boolean[][] grid;
-    public static int n=4;
-    public WeightedQuickUnionUF uf=new WeightedQuickUnionUF(n*n);
+    private boolean[][] grid;
+    private static int n=4;
+    private WeightedQuickUnionUF uf;
     public Percolation(int n)                // create n-by-n grid, with all sites blocked
     {
         grid=new boolean[n][n];
+        uf=new WeightedQuickUnionUF(n*n);
     }
     public void open(int row, int col)    // open site (row, col) if it is not open already
     {
@@ -28,6 +29,7 @@ public class Percolation {
     }
     public boolean isFull(int row, int col)  // is site (row, col) full?
     {
+        if(!isOpen(row,col)) return false;
         int i=row*n+col;
         boolean result=false;
         for(int j=0;j<n;j++)
